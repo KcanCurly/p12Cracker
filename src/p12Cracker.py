@@ -19,9 +19,8 @@ def spin(spinner):
 def main():
     colorama.init(autoreset=True)
     parser = argparse.ArgumentParser(description="P12 file cracker")
-    parser.add_argument("--p12-path", required=True, help="Path to the .p12 file to crack")
-    parser.add_argument("--wordlist", required=True, help="Path to the wordlist of guesses")
-    # Enable autocomplete
+    parser.add_argument("-f", "--p12-path", required=True, help="Path to the .p12 file to crack")
+    parser.add_argument("-w", "--wordlist", required=True, help="Path to the wordlist of guesses")
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
 

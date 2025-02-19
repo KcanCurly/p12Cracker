@@ -3,6 +3,7 @@ from colorama import Fore, Style
 import sys
 from cryptography.hazmat.primitives.serialization import pkcs12
 import argparse
+import argcomplete
 
 def spinner():
     sys.stdout.write(' ')
@@ -20,6 +21,8 @@ def main():
     parser = argparse.ArgumentParser(description="P12 file cracker")
     parser.add_argument("--p12-path", required=True, help="Path to the .p12 file to crack")
     parser.add_argument("--wordlist", required=True, help="Path to the wordlist of guesses")
+    # Enable autocomplete
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
     p12FilePath = args.p12_path

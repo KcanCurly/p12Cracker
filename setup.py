@@ -11,7 +11,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "colorama",
-        "pyOpenSSL"
+        "pyOpenSSL",
+        "argcomplete"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

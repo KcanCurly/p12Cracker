@@ -20,10 +20,10 @@ setup(
         "Intended Audience :: Information Technology",
         "Topic :: Security",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.12",
     entry_points={
         "console_scripts": [
-            "p12cracker.py=src.p12Cracker:main",  
+            "p12cracker=src.p12Cracker:main",  
         ],
     },
 )

@@ -2,6 +2,7 @@ import colorama
 from colorama import Fore, Style
 import sys
 from cryptography.hazmat.primitives.serialization import pkcs12
+import argparse
 
 def spinner():
     sys.stdout.write(' ')
@@ -9,29 +10,23 @@ def spinner():
         for cursor in '|/-\\':
             yield cursor
 
-def spin():
+def spin(spinner):
     sys.stdout.write(next(spinner))
     sys.stdout.flush()
     sys.stdout.write('\b')
 
 def main():
     colorama.init(autoreset=True)
-    p12FilePath = ""
-    if (len(sys.argv) > 2 and sys.argv[1] == "--p12-path"):
-        p12FilePath = sys.argv[2]
-    else:
-        print(Fore.RED + Style.BRIGHT + 'Error:' + Style.RESET_ALL + Fore.RED + 'Error: Please supply the path to the .p12 file to crack (--p12-path /home/hax/secret.p12)')
-        exit(0)
+    parser = argparse.ArgumentParser(description="P12 file cracker")
+    parser.add_argument("--p12-path", required=True, help="Path to the .p12 file to crack")
+    parser.add_argument("--wordlist", required=True, help="Path to the wordlist of guesses")
+    args = parser.parse_args()
 
-    wordlist = ""
-    if (len(sys.argv) > 4 and sys.argv[3] == "--wordlist"):
-        wordlist = sys.argv[4]
-    else:
-        print(Fore.RED + Style.BRIGHT + 'Error:' + Style.RESET_ALL + Fore.RED + ' Please supply the path to wordlist of guesses (--wordlist /home/hax/password_guesses.txt)')
-        exit(0)
+    p12FilePath = args.p12_path
+    wordlist = args.wordlist
 
     iterations = 0
-    spinner = spinner()
+    spin1 = spinner()
 
     with open(wordlist, 'r') as fp:
         line = fp.readline()
@@ -39,7 +34,7 @@ def main():
         print(Fore.CYAN + ' Brute forcing...')
         print('\n')
         while line:
-            spin()
+            spin(spin1)
             guess = line.strip()
             try:
                 p12 = pkcs12.load_pkcs12(open(p12FilePath, 'rb').read(), guess.encode('utf8'))
